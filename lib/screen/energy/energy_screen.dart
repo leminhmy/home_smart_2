@@ -74,11 +74,8 @@ class EnergyScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20,),
-            Container(
-              height: 350,
-              color: Colors.green,
-            ),
-            SizedBox(height: 20,),
+            LineChartColumnCustom(),
+            SizedBox(height: 40,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -257,3 +254,188 @@ class EnergyScreen extends StatelessWidget {
   }
 }
 
+class LineChartColumnCustom extends StatefulWidget {
+  const LineChartColumnCustom({Key? key}) : super(key: key);
+
+  @override
+  State<LineChartColumnCustom> createState() => _LineChartColumnCustomState();
+}
+
+class _LineChartColumnCustomState extends State<LineChartColumnCustom> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 350,
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(
+                color: Colors.white,
+                width: 1,
+              ),
+              bottom: BorderSide(
+                color: Colors.white,
+                width: 1,
+              )
+          )
+      ),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Column(
+              children: List.generate(5, (index) => Expanded(child: Container(
+                padding: EdgeInsets.only(left: 20),
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    border: Border(
+                        top: BorderSide(
+                          color: Colors.white,
+                          width: 0.5,
+                        ),
+                        bottom: BorderSide(
+                          color: Colors.white,
+                          width: 0.5,
+                        )
+                    )
+                ),
+                child: SmallText(text: "\$20",),
+              ),
+              ))),
+          Positioned(
+            bottom: -65,
+            right: 0,
+            left: 0,
+            child: Container(
+              margin: EdgeInsets.only(left: 80),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                child: Row(
+                  children: List.generate(8, (index) => Container(
+                    width: 40,
+                    clipBehavior: Clip.none,
+                    margin: EdgeInsets.only(right: 50),
+                    child: Column(
+                      children: [
+                        index ==3?SizedBox(
+                          height: 40,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Positioned(
+                                  right: -60,
+                                  left: -60,
+                                  child: ClipPath(
+                                    clipper: ShowNoteCustom(),
+                                    child: Container(height: 50,width: 150,
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.green.shade400,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: SmallText(text: "40 kWh",color: Colors.white),
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ):Container(height: 40,),
+                        SizedBox(height: 30,),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                        colors: [
+                                          Colors.lightBlueAccent,
+                                          Colors.blue,
+                                          Colors.indigo,
+                                        ]
+                                    )
+                                ),
+                              ),
+                              Container(
+                                height: 70,
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SmallText(text: "01",fontSize: 25,),
+                                    SizedBox(height: 5,),
+                                    Container(
+                                      height: 8,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(2),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                              colors: [
+                                                Colors.lightBlueAccent,
+                                                Colors.blue,
+                                                Colors.indigo,
+                                              ]
+                                          )
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  )),
+                ),
+              ),
+            )
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
+class ShowNoteCustom extends CustomClipper<Path>{
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    double w = size.width;
+    double h = size.height;
+
+    path.quadraticBezierTo(0, h, 0, h*0.7);
+    path.quadraticBezierTo(0, h*0.8, w*0.05, h*0.8);
+    path.quadraticBezierTo(0, h*0.8, w * 0.3, h*0.8);
+
+    path.quadraticBezierTo(w * 0.45, h*0.8, w * 0.5, h);
+
+    path.quadraticBezierTo(w * 0.55, h*0.8, w*0.7, h*0.8);
+
+    path.quadraticBezierTo(w * 0.6, h*0.8, 0, h*0.8);
+    path.quadraticBezierTo(w, h*0.8, w*0.95, h*0.8);
+    path.quadraticBezierTo(w, h*0.8, w, h*0.7);
+    path.lineTo(w, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    return true;
+  }
+
+
+
+
+
+
+}
