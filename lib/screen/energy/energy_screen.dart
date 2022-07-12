@@ -109,6 +109,7 @@ class EnergyScreen extends StatelessWidget {
                   ),
                   const EnergyDevicesCustom(valueDefault: 42,iconData: Icons.lightbulb_outline_rounded,name: "Air Conditioning",price: 20),
                   const EnergyDevicesCustom(valueDefault: 70,iconData: Icons.air_rounded,name: "Air Conditioning",price: 50),
+                  SizedBox(height: 100,),
                 ],
               ),
       ),
