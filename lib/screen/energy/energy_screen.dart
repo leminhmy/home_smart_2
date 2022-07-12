@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_smart_2/models/energy_chart.dart';
 import 'package:home_smart_2/widget/big_text.dart';
 
 import '../../widget/small_text.dart';
@@ -15,41 +16,14 @@ class EnergyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    List<double> valueColumn = [
-      10.2,
-      12.5,
-      50,
-      80,
-      60.82,
-      60.22,
-      70.62,
-      20.42,
-      0.22,
-      40.52,
-      10.82,
-      95.12,
-    ];
-    List<String> valueRow = [
-      "01",
-      "02",
-      "03",
-      "04",
-      "05",
-      "06",
-      "07",
-      "08",
-      "09",
-      "10",
-      "11",
-      "12",
-    ];
+
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       body: SafeArea(
         child: Column(
           children: [
             buildAppBar(size),
-            buildBody(valueColumn, valueRow),
+            buildBody(),
 
           ],
         ),
@@ -57,7 +31,7 @@ class EnergyScreen extends StatelessWidget {
     );
   }
 
-   buildBody(List<double> valueColumn, List<String> valueRow) {
+   buildBody() {
     return Expanded(
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -118,7 +92,11 @@ class EnergyScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  LineChartColumnCustom(heightContainer: 250,listValueColumn: valueColumn,listValueRow: valueRow),
+                  LineChartColumnCustom(heightContainer: 250,
+                      listValueColumn: List.generate(demoEnergyChart.length, (index) => demoEnergyChart[index].price),
+                      listValueRow:  List.generate(demoEnergyChart.length, (index) => demoEnergyChart[index].month),
+                    listValueNoteColumn: List.generate(demoEnergyChart.length, (index) => demoEnergyChart[index].valueKWH),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(

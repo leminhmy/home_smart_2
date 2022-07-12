@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_smart_2/models/weather.dart';
 import 'package:home_smart_2/screen/detail/detail_screen.dart';
 
 import '../../../widget/big_text.dart';
@@ -36,7 +37,7 @@ class HomePage extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(3, (index) => Container(
+              children: List.generate(demoWeather.length, (index) => Container(
                 padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -46,11 +47,12 @@ class HomePage extends StatelessWidget {
                   children: [
                     SizedBox(
                         height: size.height * 0.1,
-                        child: Image.asset('assets/images/avatar.png',fit: BoxFit.cover,)),
+                        width: size.width * 0.22,
+                        child: Icon(demoWeather[index].icon,size: 50,color: Colors.blue,)),
                     SizedBox(height: 5,),
-                    BigText(text: "Temperature",fontSize: size.height * 0.02,),
+                    BigText(text: demoWeather[index].name,fontSize: size.height * 0.02,),
                     SizedBox(height: 5,),
-                    BigText(text: "29°"),
+                    BigText(text: demoWeather[index].temp),
                   ],
                 ),
               )),

@@ -17,15 +17,6 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
 
-  List<String> image = [
-    'assets/images/icon_trans.png',
-    'assets/images/icon_trans.png',
-    'assets/images/icon_trans.png',
-    'assets/images/icon_trans.png',
-  ];
-
-  int indexSelected = 0;
-  double currentAngle = 0;
 
 
   @override
@@ -49,103 +40,7 @@ class _DetailScreenState extends State<DetailScreen> {
   buildBody(Size size, BuildContext context) {
     return Column(
             children: [
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/living_home.png'),
-                  ),
-
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: [
-                              Colors.grey.shade200,
-                              Colors.white.withOpacity(0.4),
-                              Colors.white.withOpacity(0.1),
-                            ]
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Row(
-                              children:List.generate(image.length, (index) => GestureDetector(
-                                onTap: (){
-                                  setState((){
-                                    indexSelected = index;
-                                  });
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 30),
-                                  height: 80,
-                                  width: 80,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                    border: indexSelected == index? Border.all(
-                                        width: 2,
-                                        color: Colors.blue
-                                    ):null,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      indexSelected == index?ShaderMask(
-                                        blendMode: BlendMode.srcIn,
-                                        shaderCallback: (Rect bounds){
-                                          return LinearGradient(
-                                              colors: [
-                                                Colors.blueAccent,
-                                                Colors.blueAccent,
-                                              ]
-                                          ).createShader(bounds);
-                                        },
-                                        child: Container(
-                                          height: 60,
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                  image: AssetImage(image[index]),
-                                                  fit: BoxFit.cover
-                                              )
-                                          ),
-                                        ),
-                                      ):Container(
-                                        height: 60,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: AssetImage(image[index]),
-                                                fit: BoxFit.cover
-                                            )
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),)
-                          ),
-                        ),
-                      ),
-                    )
-
-                  ],
-                ),
-              ),
+              Devices(),
               SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -231,6 +126,127 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ],
             ),
+    );
+  }
+}
+
+class Devices extends StatefulWidget {
+  const Devices({Key? key}) : super(key: key);
+
+  @override
+  State<Devices> createState() => _DevicesState();
+}
+
+class _DevicesState extends State<Devices> {
+
+  List<String> image = [
+    'assets/images/icon_trans.png',
+    'assets/images/cctv-camera.png',
+    'assets/images/bulb.png',
+    'assets/images/television.png',
+  ];
+
+  int indexSelected = 0;
+  double currentAngle = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/living_home.png'),
+        ),
+
+      ),
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.grey.shade200,
+                    Colors.white.withOpacity(0.4),
+                    Colors.white.withOpacity(0.1),
+                  ]
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                    children:List.generate(image.length, (index) => GestureDetector(
+                      onTap: (){
+                        setState((){
+                          indexSelected = index;
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(right: 30),
+                        height: 80,
+                        width: 80,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          border: indexSelected == index? Border.all(
+                              width: 2,
+                              color: Colors.blue
+                          ):null,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            indexSelected == index?ShaderMask(
+                              blendMode: BlendMode.srcIn,
+                              shaderCallback: (Rect bounds){
+                                return LinearGradient(
+                                    colors: [
+                                      Colors.blueAccent,
+                                      Colors.blueAccent,
+                                    ]
+                                ).createShader(bounds);
+                              },
+                              child: Container(
+                                height: 60,
+                                padding: EdgeInsets.all(5),
+                                width: 60,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: AssetImage(image[index]),
+                                        fit: BoxFit.cover
+                                    )
+                                ),
+                              ),
+                            ):Container(
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: AssetImage(image[index]),
+                                      fit: BoxFit.cover
+                                  )
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),)
+                ),
+              ),
+            ),
+          )
+
+        ],
+      ),
     );
   }
 }

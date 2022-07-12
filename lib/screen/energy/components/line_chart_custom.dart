@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../../widget/small_text.dart';
 class LineChartColumnCustom extends StatefulWidget {
-  const LineChartColumnCustom({Key? key, this.heightContainer = 350,  this.valueAxisY = 5, required this.listValueColumn, required this.listValueRow}) : super(key: key);
+  const LineChartColumnCustom({Key? key, this.heightContainer = 350,  this.valueAxisY = 5, required this.listValueColumn, required this.listValueRow, required this.listValueNoteColumn}) : super(key: key);
 
   final double heightContainer;
   final int valueAxisY;
   final List<double> listValueColumn;
   final List<dynamic> listValueRow;
+  final List<dynamic> listValueNoteColumn;
 
 
   @override
@@ -158,7 +159,7 @@ class _LineChartColumnCustomState extends State<LineChartColumnCustom> {
                                                       color: Colors.green.shade400,
                                                       borderRadius: BorderRadius.circular(5),
                                                     ),
-                                                    child: SmallText(text: "40 kWh",color: Colors.white),
+                                                    child: SmallText(text: "${widget.listValueNoteColumn[index].toString()} kWh",color: Colors.white),
                                                   ),
                                                 )),
                                           ],
