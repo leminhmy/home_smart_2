@@ -1,47 +1,63 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../../../widget/small_text.dart';
 
 
 class SliderWidgetCustom extends StatefulWidget {
-  const SliderWidgetCustom({Key? key}) : super(key: key);
+  const SliderWidgetCustom({Key? key, required this.valueDefault}) : super(key: key);
+  final double valueDefault;
 
   @override
   State<SliderWidgetCustom> createState() => _SliderWidgetCustomState();
 }
 
 class _SliderWidgetCustomState extends State<SliderWidgetCustom> {
-  double value = 50;
+  late double value;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: SliderTheme(
-            data: SliderThemeData(
-              trackHeight: 10,
-              trackShape: GradientRectSliderTrackShape(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Colors.lightBlueAccent,Colors.blue,Colors.indigo],
-                  )
-              ),
+    return TweenAnimationBuilder(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOutQuint,
+        tween: Tween(begin: 0.0,end: widget.valueDefault),
+        builder: (context,double valueAnimation, child) {
+          value = valueAnimation;
+          return StatefulBuilder(
+          builder: (context, setState2) {
+            return Row(
+              children: [
+                Expanded(
+                  child: SliderTheme(
+                    data: const SliderThemeData(
+                      trackHeight: 10,
+                      trackShape: GradientRectSliderTrackShape(
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Colors.lightBlueAccent,Colors.blue,Colors.indigo],
+                          )
+                      ),
 
-            ),
-            child: Slider(
-              value: value,
-              min: 0,
-              max: 100,
-              activeColor: Colors.blue,
-              inactiveColor: Colors.grey.shade300,
-              onChanged: (value) => setState(() => this.value = value),
-            ),
-          ),
-        ),
-        SizedBox(width: 10,),
-        SmallText(text: '${value.toInt()}%'),
-      ],
+                    ),
+                    child: Slider(
+                      value: value,
+                      min: 0,
+                      max: 100,
+                      activeColor: Colors.blue,
+                      inactiveColor: Colors.grey.shade300,
+                      onChanged: (value) => setState2(() => this.value = value),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10,),
+                SmallText(text: '${value.toInt()}%'),
+              ],
+            );
+          }
+        );
+      }
     );
   }
 }

@@ -39,7 +39,6 @@ class _LinerContainerState extends State<LinerContainer> {
       curve: Curves.elasticInOut,
       builder: (context,double value, child) {
         setLinerValue = value;
-        print(value);
         return StatefulBuilder(
           builder: (context, setState2) {
             return Padding(

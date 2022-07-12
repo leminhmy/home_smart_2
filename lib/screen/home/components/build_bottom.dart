@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BuildBottom extends StatefulWidget {
-  const BuildBottom({Key? key}) : super(key: key);
+  const BuildBottom({Key? key, required this.onChanged}) : super(key: key);
+
+  final ValueChanged<int> onChanged;
 
   @override
   State<BuildBottom> createState() => _BuildBottomState();
@@ -42,7 +44,7 @@ class _BuildBottomState extends State<BuildBottom> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: List.generate(4, (index) => GestureDetector(
                     onTap: (){
-                      print(index);
+                      widget.onChanged(index);
                       setState((){
                         indexSelected = index;
                       });
